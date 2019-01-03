@@ -1,13 +1,5 @@
 import React from 'react';
-
-const Header = (props) => {
-  return (
-    <header>
-      <h1>{ props.title }</h1>
-      <span className="stats">Players: {props.totalPlayers}</span> 
-    </header>
-  );
-}
+import Header from './Header';
 
 class Counter extends React.Component {
   state = { 
@@ -37,18 +29,6 @@ class Counter extends React.Component {
   }
 }
   
-const Player = (props) => {
-  return (
-    <div className="player">
-      <span className="player-name">
-        <button className="remove-player" onClick={() => props.removePlayer(props.id)}>✖</button>
-        { props.name }
-      </span>
-
-      <Counter />
-    </div>
-  );
-}
 
 class App extends React.Component {
   state = {
