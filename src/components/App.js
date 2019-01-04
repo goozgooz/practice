@@ -32,7 +32,7 @@ class App extends React.Component {
   handleScoreChange = (playerID, delta) => {
     this.setState(prevState => ({
       players: prevState.players.map(player => {
-        if (player.id === playerID){
+        if (player.id === playerID) {
           player.score += delta;
           return player;
         } else {
