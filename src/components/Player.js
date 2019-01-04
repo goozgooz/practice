@@ -2,8 +2,8 @@ import React from 'react';
 import Counter from './Counter';
 
 const Player = (props) => {
-  console.log(props);
   let {player, changeScore} = props;
+
   return (
     <div className="player">
       <span className="player-name">

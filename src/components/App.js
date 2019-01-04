@@ -5,43 +5,47 @@ import Player from './Player';
 
 class App extends React.Component {
   state = {
-    players: {
-      1: {
+    players: [
+       {
+        id: 1,
         name: "Guil",
         score: 0,
       },
-      2: {
+      {
+        id: 2,
         name: "Treasure",
         score: 0,
       },
-      3: {
+      {
+        id: 3,
         name: "Ashley",
         score: 0,
-        id: 3
       },
-      4: {
+      {
+        id: 4,
         name: "James",
         score: 0,
-        id: 4
       }
-    }
+    ]
   };
 
   handleScoreChange = (playerID, delta) => {
-    console.log('derp')
-    // this.setState ( prevState => {
-    //   return {
-    //     players: prevState.players.map(p )
-    //   }
-    // })
+    this.setState(prevState => ({
+      players: prevState.players.map(player => {
+        if (player.id === playerID){
+          player.score += delta;
+          return player;
+        } else {
+          return player;
+        }
+      })
+    }))
   }
 
   handleRemovePlayer = (id) => {
-    this.setState( prevState => {
-      return {
-        players: prevState.players.filter(p => p.id !== id)
-      };
-    });
+    this.setState(prevState => ({
+      players: prevState.players.filter(player => player.id !== id)
+    }))
   }
 
   render() {
@@ -55,11 +59,11 @@ class App extends React.Component {
           totalPlayers={players.length} 
         />
   
-        {Object.keys(players).map((player, i) =>
+        {players.map((player, i) =>
           <Player 
             changeScore = {this.handleScoreChange}
             key={i} 
-            player = {players[player]}
+            player = {player}
             removePlayer={this.handleRemovePlayer}           
           />
         )}
