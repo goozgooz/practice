@@ -1,99 +1,69 @@
 import React from 'react';
-
-const Header = (props) => {
-  return (
-    <header>
-      <h1>{ props.title }</h1>
-      <span className="stats">Players: {props.totalPlayers}</span> 
-    </header>
-  );
-}
-
-class Counter extends React.Component {
-  state = { 
-    score: 0 
-  };
+import Header from './Header';
+import Player from './Player';
   
-  incrementScore = () => {
-    this.setState( prevState => ({
-      score: prevState.score + 1
-    }));
-  }
-
-  decrementScore = () => {
-    this.setState( prevState => ({
-      score: prevState.score - 1
-    }));
-  }
-
-  render() {
-    return (
-      <div className="counter">
-        <button className="counter-action decrement" onClick={this.decrementScore}> - </button>
-        <span className="counter-score">{ this.state.score }</span>
-        <button className="counter-action increment" onClick={this.incrementScore}> + </button>
-      </div>
-    );
-  }
-}
-  
-const Player = (props) => {
-  return (
-    <div className="player">
-      <span className="player-name">
-        <button className="remove-player" onClick={() => props.removePlayer(props.id)}>✖</button>
-        { props.name }
-      </span>
-
-      <Counter />
-    </div>
-  );
-}
 
 class App extends React.Component {
   state = {
     players: [
-      {
+       {
+        id: 1,
         name: "Guil",
-        id: 1
+        score: 0,
       },
       {
+        id: 2,
         name: "Treasure",
-        id: 2
+        score: 0,
       },
       {
+        id: 3,
         name: "Ashley",
-        id: 3
+        score: 0,
       },
       {
+        id: 4,
         name: "James",
-        id: 4
+        score: 0,
       }
     ]
   };
 
+  handleScoreChange = (playerID, delta) => {
+    this.setState(prevState => ({
+      players: prevState.players.map(player => {
+        if (player.id === playerID) {
+          player.score += delta;
+          return player;
+        } else {
+          return player;
+        }
+      })
+    }))
+  }
+
   handleRemovePlayer = (id) => {
-    this.setState( prevState => {
-      return {
-        players: prevState.players.filter(p => p.id !== id)
-      };
-    });
+    this.setState(prevState => ({
+      players: prevState.players.filter(player => player.id !== id)
+    }))
   }
 
   render() {
+    
+    let {players} = this.state;
+    console.log(players);
     return (
       <div className="scoreboard">
         <Header 
           title="Scoreboard" 
-          totalPlayers={this.state.players.length} 
+          data={players}
         />
   
-        {/* Players list */}
-        {this.state.players.map( player =>
+        {players.map((player, i) =>
           <Player 
-            name={player.name}
-            id={player.id}
-            key={player.id.toString()} 
+            changeScore = {this.handleScoreChange}
+            key={i} 
+            player = {player}
             removePlayer={this.handleRemovePlayer}           
           />
         )}
