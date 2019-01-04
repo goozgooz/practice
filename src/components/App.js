@@ -49,14 +49,14 @@ class App extends React.Component {
   }
 
   render() {
-
+    
     let {players} = this.state;
-
+    console.log(players);
     return (
       <div className="scoreboard">
         <Header 
           title="Scoreboard" 
-          totalPlayers={players.length} 
+          data={players}
         />
   
         {players.map((player, i) =>
