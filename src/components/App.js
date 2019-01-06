@@ -1,43 +1,55 @@
 import React from 'react';
+import uuid from 'uuid/v4';
+
 import Header from './Header';
 import Player from './Player';
+import AddPlayerForm from './AddPlayerForm';
+
   
 
 class App extends React.Component {
   state = {
     players: [
        {
-        id: 1,
+        id: new uuid(),
         name: "Guil",
         score: 0,
       },
       {
-        id: 2,
+        id: new uuid(),
         name: "Treasure",
         score: 0,
       },
       {
-        id: 3,
+        id: new uuid(),
         name: "Ashley",
         score: 0,
       },
       {
-        id: 4,
+        id: new uuid(),
         name: "James",
         score: 0,
       }
     ]
   };
 
-  handleScoreChange = (playerID, delta) => {
+  handleAddPlayer = (playerName) => {
+    let newPlayer = {
+      id: new uuid(),
+      name: playerName,
+      score: 0,
+    };
+    
+    this.setState({players: [...this.state.players, newPlayer]});
+  }
+
+  handleScoreChange = (id, delta) => {
     this.setState(prevState => ({
       players: prevState.players.map(player => {
-        if (player.id === playerID) {
+        if(player.id === id) {
           player.score += delta;
-          return player;
-        } else {
-          return player;
         }
+        return player;
       })
     }))
   }
@@ -49,9 +61,8 @@ class App extends React.Component {
   }
 
   render() {
-    
     let {players} = this.state;
-    console.log(players);
+    
     return (
       <div className="scoreboard">
         <Header 
@@ -67,6 +78,10 @@ class App extends React.Component {
             removePlayer={this.handleRemovePlayer}           
           />
         )}
+        
+        <AddPlayerForm
+          handleAddPlayer={this.handleAddPlayer}
+        />
       </div>
     );
   }
