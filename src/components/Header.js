@@ -1,13 +1,13 @@
 import React from 'react';
 import Stats from './Stats';
+import Stopwatch from './Stopwatch';
 
 const Header = (props) => {
   return (
     <header>
-      <Stats 
-        data = {props.data}
-      />
+      <Stats data = {props.data} />
       <h1>{ props.title }</h1>
+      <Stopwatch />
     </header>
   );
 }
