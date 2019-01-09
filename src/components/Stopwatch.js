@@ -18,8 +18,16 @@ class Stopwatch extends React.Component {
     }
   }
   
+  handleReset = () => {
+    this.setState({elapsedTime: 0});
+  }
+  
   componentDidMount() {
     this.intervalID = setInterval (() => this.tick(), 100);
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
   }
   
   tick = () => {
@@ -33,14 +41,16 @@ class Stopwatch extends React.Component {
   }
 
   render(){
+    const seconds =  Math.floor(this.state.elapsedTime/1000)
+    
     return (
       <div className="stopwatch">
         <h2>Stopwatch</h2>
-        <span className="stopwatch-time">0</span>
+        <span className="stopwatch-time"> { seconds }</span>
         <button onClick={this.handleStopWatchClick}>
           { this.state.isRunning ? 'Stop' : 'Start' }
         </button> 
-        <button>Reset</button>
+        <button onClick = {this.handleReset} >Reset</button>
       </div>
     )
   }
