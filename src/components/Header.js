@@ -3,10 +3,11 @@ import Stats from './Stats';
 import Stopwatch from './Stopwatch';
 
 const Header = (props) => {
+  const {data, title} = props;
   return (
     <header>
-      <Stats data = {props.data} />
-      <h1>{ props.title }</h1>
+      <Stats data = {data} />
+      <h1>{ title }</h1>
       <Stopwatch />
     </header>
   );

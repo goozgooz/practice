@@ -6,7 +6,8 @@ class AddPlayerForm extends React.Component{
     }
     
     handleChange = (e) => {
-        this.setState({name: e.target.value})
+        const {name, value} = e.target;
+        this.setState({[name]: value })
     }
     
     handleSubmit = (e) => {
@@ -22,6 +23,7 @@ class AddPlayerForm extends React.Component{
                     type='text'
                     onChange = {this.handleChange}
                     placeholder='Enter Player Name'
+                    name='name'
                     value={this.state.name}
                 />
                
@@ -29,8 +31,6 @@ class AddPlayerForm extends React.Component{
                     type='submit'
                     value='Add Player'
                 />
-                
-                
             </form>
         )
     }
