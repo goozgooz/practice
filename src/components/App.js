@@ -66,7 +66,7 @@ class App extends React.Component {
   }
 
   render() {
-    let {players} = this.state;
+    let {players, highscore} = this.state;
     return (
       <div className="scoreboard">
         <Header 
@@ -77,6 +77,7 @@ class App extends React.Component {
         {players.map((player, i) =>
           <Player 
             changeScore = {this.handleScoreChange}
+            highscore = {highscore}
             key={i} 
             player = {player}
             removePlayer={this.handleRemovePlayer}     
