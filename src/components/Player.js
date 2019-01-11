@@ -13,9 +13,10 @@ class Player extends React.PureComponent {
       score: PropTypes.number
     }).isRequired
   }
-  
+
   render() {
-    let {player, changeScore, removePlayer} = this.props;
+    let {player, changeScore, removePlayer, score} = this.props;
+
     return (
       <div className="player">
         <span className="player-name">
@@ -26,7 +27,7 @@ class Player extends React.PureComponent {
         <Counter 
           changeScore = {changeScore}
           playerID = {player.id}
-          score = {player.score}
+          score = {score}
         />
       </div>
     );
