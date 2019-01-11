@@ -7,6 +7,7 @@ import AddPlayerForm from './AddPlayerForm';
 
 class App extends React.Component {
   state = {
+    highscore: 0,
     players: [
        {
         id: new uuid(),
@@ -40,6 +41,12 @@ class App extends React.Component {
     
     this.setState({players: [...this.state.players, newPlayer]});
   }
+  
+  updateHighScore = () => {
+    this.setState(prevState => ({
+      highscore: prevState.players.reduce((highscore, player) => player.score > highscore ? player.score : highscore, 0)
+    }));
+  }
 
   handleScoreChange = (id, delta) => {
     this.setState(prevState => ({
@@ -49,18 +56,17 @@ class App extends React.Component {
         }
         return player;
       })
-    }))
+    }), this.updateHighScore);
   }
 
   handleRemovePlayer = (id) => {
     this.setState(prevState => ({
-      players: prevState.players.filter(player => player.id !== id)
-    }))
+      players: prevState.players.filter(player => player.id !== id),
+    }), this.updateHighScore);
   }
 
   render() {
-    let {players} = this.state;
-    
+    let {players, highscore} = this.state;
     return (
       <div className="scoreboard">
         <Header 
@@ -71,9 +77,11 @@ class App extends React.Component {
         {players.map((player, i) =>
           <Player 
             changeScore = {this.handleScoreChange}
+            highscore = {highscore}
             key={i} 
             player = {player}
-            removePlayer={this.handleRemovePlayer}           
+            removePlayer={this.handleRemovePlayer}     
+            score = {player.score}
           />
         )}
         

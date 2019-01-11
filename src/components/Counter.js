@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const Counter = (props) => {
   const {changeScore, playerID, score} = props;
+  // console.log(score)
   return (
     <div className="counter">
       <button 
